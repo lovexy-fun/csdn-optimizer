@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack serve",
-    "build": "webpack"
+    "build": "cross-env NODE_ENV=production webpack"
   },
   "dependencies": {
     "react": "17.0.2",

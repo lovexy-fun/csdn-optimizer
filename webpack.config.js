@@ -1,13 +1,23 @@
+const TerserPlugin = require("terser-webpack-plugin")
+const webpack = require('webpack');
 const { merge } = require('webpack-merge')
 const base = require('./webpack.config.base')
 
 module.exports = merge(base, {
   mode: process.env.NODE_ENV || 'production',
-  devtool: 'source-map',
   output: {
     filename: '[name].bundle.js',
     path: __dirname + '/dist',
   },
+  externals: [
+    (ctx, callback) => {
+      if (process.env.NODE_ENV == 'production') {
+        callback(null, ['react', 'react-dom']);
+      } else {
+        callback()
+      }
+    }
+  ],
   module: {
     rules: [
       {
@@ -21,5 +31,4 @@ module.exports = merge(base, {
       },
     ],
   },
-  plugins: [],
 })
